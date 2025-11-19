@@ -21,5 +21,7 @@
         </activity>
         <activity android:name=".QueryActivity"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+
+        <activity android:name=".BrowseDataActivity"/>
     </application>
 </manifest>
