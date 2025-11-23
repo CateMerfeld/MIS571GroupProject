@@ -85,8 +85,6 @@ public class MainActivity extends AppCompatActivity {
         barChart.setFitBars(true);
 
         barChart.animateY(1500);
-    }
-}
     
     }
 }
