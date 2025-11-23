@@ -41,5 +41,52 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+   
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_main);
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
+
+        barChart = findViewById(R.id.barChart);
+
+        List<String> productLabels = new ArrayList<>();
+        List<BarEntry> entries = new ArrayList<>();
+
+        productLabels.add("Product 1");
+        productLabels.add("Product 2");
+        productLabels.add("Product 3");
+        productLabels.add("Product 4");
+        productLabels.add("Product 5");
+
+        entries.add(new BarEntry(0f, 0f));
+        entries.add(new BarEntry(1f, 0f));
+        entries.add(new BarEntry(2f, 0f));
+        entries.add(new BarEntry(3f, 0f));
+        entries.add(new BarEntry(4f, 0f));
+
+        BarDataSet dataSet = new BarDataSet(entries, "Top 5 Products (by Sales)");
+        BarData data = new BarData(dataSet);
+        data.setBarWidth(0.8f);
+
+        XAxis xAxis = barChart.getXAxis();
+        xAxis.setValueFormatter(new IndexAxisValueFormatter(productLabels));
+        xAxis.setGranularity(1f);
+        xAxis.setGranularityEnabled(true);
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+
+        barChart.getDescription().setEnabled(false);
+        barChart.getAxisRight().setEnabled(false);
+        barChart.setFitBars(true);
+
+        barChart.animateY(1500);
+    }
+}
+        
     }
 }
